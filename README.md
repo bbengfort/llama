@@ -1,2 +1,2 @@
-# llama
-Udemy Docker and Kubernetes tutorial
+# Llama
+**Source code for playing around with Docker and Kubernetes**
