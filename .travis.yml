@@ -7,3 +7,23 @@ before_install:
 
 script:
   - docker run bbengfort/llama/frontend npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "llama"
+  env: "frontend"
+  bucket_name: "elasticbeanstalk-us-east-1-910826940034"
+  bucket_path: "llama"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
+
+notifications:
+  email:
+    recipients:
+      - benjamin@bengfort.com
+    on_success: change
+    on_failure: always
