@@ -22,18 +22,18 @@ after_success:
   - docker build -t bbengfort/llama-worker ./worker
   - docker push bbengfort/llama-worker
 
-# deploy:
-#   provider: elasticbeanstalk
-#   region: "us-east-1"
-#   app: "llama"
-#   env: "frontend"
-#   bucket_name: "elasticbeanstalk-us-east-1-910826940034"
-#   bucket_path: "llama"
-#   on:
-#     branch: master
-#   access_key_id: $AWS_ACCESS_KEY
-#   secret_access_key:
-#     secure: "$AWS_SECRET_KEY"
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "llama"
+  env: "llama-env"
+  bucket_name: "elasticbeanstalk-us-east-1-910826940034"
+  bucket_path: "llama"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
 
 notifications:
   email:

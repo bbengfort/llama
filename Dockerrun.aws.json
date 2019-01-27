@@ -1,0 +1,34 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "web",
+      "image": "bbengfort/llama-web",
+      "hostname": "web",
+      "essential": false
+    },
+    {
+      "name": "api",
+      "image": "bbengfort/llama-api",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "bbengfort/llama-worker",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "bbengfort/llama-nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["web", "api"]
+    }
+  ]
+}
