@@ -1,16 +1,11 @@
-# Specify a base image
-FROM node:alpine
-
-# Set the working directory of the container
+FROM node:alpine AS builder
 WORKDIR /app
-
-# Install dependencies
-COPY package.json .
+COPY ./package.json ./
 RUN npm install
-
-# Include application files with the image
-# Note that this follows dependencies to optimize cache
 COPY . .
+RUN npm run build
 
-# Run the webserver
-CMD ["npm", "start"]
+FROM nginx
+EXPOSE 3000
+COPY --from=builder /app/build /usr/share/nginx/html
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
