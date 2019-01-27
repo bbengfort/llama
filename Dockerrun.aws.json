@@ -5,18 +5,20 @@
       "name": "web",
       "image": "bbengfort/llama-web",
       "hostname": "web",
-      "essential": false
+      "memory": 128
     },
     {
       "name": "api",
       "image": "bbengfort/llama-api",
       "hostname": "api",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "worker",
       "image": "bbengfort/llama-worker",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "nginx",
@@ -28,7 +30,8 @@
           "containerPort": 80
         }
       ],
-      "links": ["web", "api"]
+      "links": ["web", "api"],
+      "memory": 128
     }
   ]
 }
