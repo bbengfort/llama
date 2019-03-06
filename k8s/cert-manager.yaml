@@ -1,0 +1,30 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: 'server@bengfort.com'
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    http01: {}
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: llama-bengfort-com-tls
+spec:
+  secretName: llama-bengfort-com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: llama.bengfort.com
+  dnsNames:
+    - llama.bengfort.com
+  acme:
+    config:
+      - http01:
+          ingressClass: nginx
+        domains:
+          - llama.bengfort.com
