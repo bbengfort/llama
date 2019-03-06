@@ -11,7 +11,7 @@ class App extends Component {
         <div className="App">
           <header className="App-header">
             <h1 className="App-title">Welcome to Llama</h1>
-            <p>Fib Calculator version 2</p>
+            <p>Fib Calculator version KUBERNETES</p>
           </header>
           <ul className="Nav">
             <li><Link to="/" className="App-link">Home</Link></li>
