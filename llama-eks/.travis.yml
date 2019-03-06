@@ -1,0 +1,43 @@
+sudo: required
+services:
+  - docker
+
+# Build test/development docker images
+before_install:
+  - docker build -t bbengfort/llama/web-test -f web/Dockerfile.dev web/
+
+# Run tests
+script:
+  - docker run bbengfort/llama/web-test npm run test -- --coverage
+
+# If tests pass build production docker images and push to Docker Hub
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker build -t bbengfort/llama-api ./api
+  - docker push bbengfort/llama-api
+  - docker build -t bbengfort/llama-nginx ./nginx
+  - docker push bbengfort/llama-nginx
+  - docker build -t bbengfort/llama-web ./web
+  - docker push bbengfort/llama-web
+  - docker build -t bbengfort/llama-worker ./worker
+  - docker push bbengfort/llama-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "llama"
+  env: "llama-env"
+  bucket_name: "elasticbeanstalk-us-east-1-910826940034"
+  bucket_path: "llama"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
+
+notifications:
+  email:
+    recipients:
+      - benjamin@bengfort.com
+    on_success: change
+    on_failure: always

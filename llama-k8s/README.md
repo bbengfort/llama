@@ -4,6 +4,4 @@
 
 [![Build Status](https://travis-ci.com/bbengfort/llama.svg?branch=master)](https://travis-ci.com/bbengfort/llama)
 
-
-- llama-eks: the AWS container deployment
-- llama-k8s: the Google Cloud k8s deployment
+![k8s Architecture](docs/architecture.png)
