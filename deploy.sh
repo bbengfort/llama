@@ -12,4 +12,4 @@ docker push bbengfort/llama-worker:$SHA
 kubectl apply -f k8s
 kubectl set image deployments/web-deployment web=bbengfort/llama-web:$SHA
 kubectl set image deployments/api-deployment api=bbengfort/llama-api:$SHA
-kubectl set image deployments/worker-deployment worker=bbengfort/llama-worker$SHA
+kubectl set image deployments/worker-deployment worker=bbengfort/llama-worker:$SHA
