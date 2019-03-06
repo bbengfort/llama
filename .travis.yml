@@ -13,7 +13,7 @@ before_install:
 - curl https://sdk.cloud.google.com | bash > /dev/null;
 - source $HOME/google-cloud-sdk/path.bash.inc
 - gcloud components update kubectl
-- gcloud auth activate-service-account --key-file service-acount.json
+- gcloud auth activate-service-account --key-file service-account.json
 - gcloud config set project llama-232416
 - gcloud config set compute/zone us-east4-b
 - gcloud container clusters get-credentials llama-cluster
